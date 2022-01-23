@@ -50,6 +50,7 @@
     "express-basic-auth": "^1.2.0",
     "generate-password": "^1.5.1",
     "helmet": "^4.1.0",
+    "json5": "^2.2.0",
     "mongodb": "^4.2.1",
     "nanoid": "^3.1.12",
     "nestjs-console": "^3.1.1",

@@ -1,13 +1,14 @@
 import { BullModuleOptions, BullOptionsFactory } from '@nestjs/bull'
 import { Injectable } from '@nestjs/common'
+import IORedis from 'ioredis'
 import { ConfigService } from 'src/config/config.service'
 
 @Injectable()
 export class DeleteForDomainConfigService implements BullOptionsFactory {
-  private redisUrl: string
+  private redisUrl: string | IORedis.RedisOptions
 
   constructor(config: ConfigService) {
-    this.redisUrl = config.REDIS_URL
+    this.redisUrl = config.REDIS
   }
 
   createBullOptions(): BullModuleOptions {

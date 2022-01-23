@@ -1,8 +1,8 @@
 import { Injectable, Logger } from '@nestjs/common'
 import { classToClass, plainToClass } from 'class-transformer'
 import { validateOrReject } from 'class-validator'
-import dotenv from 'dotenv'
 import fs from 'fs'
+import json5 from 'json5'
 
 import { DuckyApiConfig } from './ducky-api-config.class'
 
@@ -12,7 +12,7 @@ export type EnvConfig = Record<string, any>
 export class ConfigService extends DuckyApiConfig {
   constructor(filePath: string) {
     super()
-    const config = dotenv.parse(fs.readFileSync(filePath))
+    const config = json5.parse(fs.readFileSync(filePath).toString('utf8'))
     this.validateConfig(config)
   }
 

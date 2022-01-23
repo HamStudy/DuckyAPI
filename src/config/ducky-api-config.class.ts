@@ -18,6 +18,7 @@ import {
   ValidatorConstraint,
   ValidatorConstraintInterface,
 } from 'class-validator'
+import IORedis from 'ioredis'
 import { DnsCheckMxRecord } from 'src/domains/class/dns.class'
 
 const jsonParse = (value: any): any => {
@@ -84,8 +85,7 @@ export class DuckyApiConfig {
   MONGODB_URL: string
 
   @IsNotEmpty()
-  @IsString()
-  REDIS_URL: string
+  REDIS: string | IORedis.RedisOptions
 
   @IsNotEmpty()
   @IsString()

@@ -1,13 +1,14 @@
 import { BullModuleOptions, BullOptionsFactory } from '@nestjs/bull'
 import { Injectable } from '@nestjs/common'
+import IORedis from 'ioredis'
 import { ConfigService } from 'src/config/config.service'
 
 @Injectable()
 export class SuspensionConfigService implements BullOptionsFactory {
-  private redisUrl: string
+  private redis: string | IORedis.RedisOptions
 
   constructor(config: ConfigService) {
-    this.redisUrl = config.REDIS_URL
+    this.redis = config.REDIS
   }
 
   createBullOptions(): BullModuleOptions {
@@ -21,7 +22,7 @@ export class SuspensionConfigService implements BullOptionsFactory {
         },
         removeOnComplete: 1000,
       },
-      redis: this.redisUrl,
+      redis: this.redis,
     }
   }
 }

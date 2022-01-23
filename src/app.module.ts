@@ -110,12 +110,12 @@ export class AppModule implements NestModule {
                 {
                   name: 'deleteForDomain',
                   hostId: 'DuckyAPI',
-                  redis: this.config.REDIS_URL,
+                  redis: this.config.REDIS,
                 },
                 {
                   name: 'suspension',
                   hostId: 'DuckyAPI',
-                  redis: this.config.REDIS_URL,
+                  redis: this.config.REDIS,
                 },
               ],
             },
