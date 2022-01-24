@@ -1,3 +1,4 @@
+import { TypeOrmModuleOptions } from '@nestjs/typeorm'
 import { Transform, Type } from 'class-transformer'
 import {
   ArrayMinSize,
@@ -5,6 +6,7 @@ import {
   IsBoolean,
   IsNotEmpty,
   IsNumber,
+  IsObject,
   IsOptional,
   IsString,
   IsUrl,
@@ -20,6 +22,8 @@ import {
 } from 'class-validator'
 import IORedis from 'ioredis'
 import { DnsCheckMxRecord } from 'src/domains/class/dns.class'
+
+type MongoConnectionOptions = TypeOrmModuleOptions & { type: 'mongodb' }
 
 const jsonParse = (value: any): any => {
   try {
@@ -80,9 +84,12 @@ export class DuckyApiConfig {
   })
   TOKEN_SECRET: string
 
-  @IsNotEmpty()
-  @IsString()
+  @IsOptional()
   MONGODB_URL: string
+
+  @IsOptional()
+  @IsObject()
+  MONGODB: Partial<MongoConnectionOptions>
 
   @IsNotEmpty()
   REDIS: string | IORedis.RedisOptions

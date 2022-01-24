@@ -31,6 +31,7 @@ const migrationContext = require.context('.', true, /migrations\/\d*-.*\.ts$/)
       inject: [ConfigService],
       useFactory: (config: ConfigService) => ({
         type: 'mongodb',
+        ...(config.MONGODB_URL ? { url: config.MONGODB_URL } : config.MONGODB ?? {}),
         url: config.MONGODB_URL,
         keepConnectionAlive: true,
         entities: [
